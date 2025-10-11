@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Database
+/db/database.db
+
 # Misc
 .DS_Store
 Thumbs.db
