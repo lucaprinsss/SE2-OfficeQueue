@@ -1,4 +1,4 @@
-import db from '../db/init-database.js';
+import {db} from '../db/db-connection.js';
 import { Ticket } from '../models/TicketDAO.js';
 
 export function createTicket(serviceType) {

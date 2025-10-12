@@ -1,4 +1,4 @@
-import db from '../db/init-database.js';
+import {db} from '../db/db-connection.js';
 import { Service } from '../models/ServiceDAO.js';
 
 export function getServices() {

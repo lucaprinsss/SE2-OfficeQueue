@@ -107,6 +107,3 @@ function initializeDatabase() {
 
 // Inizializza il database al primo import
 initializeDatabase();
-
-// Esporta l'istanza del database
-export default db;
