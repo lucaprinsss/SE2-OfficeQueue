@@ -2,11 +2,20 @@ import { getUserRole as getUserRoleRepo, getRoles as getRolesRepo } from '../rep
 
 export function getUserRole(req, res) {
   const { userId } = req.params;
-  const role = getUserRoleRepo(Number(userId));
-  res.json({ userId: Number(userId), role: role.role });
+  try {
+    const role = getUserRoleRepo(Number(userId));
+    if (!role) return res.status(404).json({ error: 'User not found' });
+    res.json({ userId: Number(userId), role: role.role });
+  } catch (error) {
+    res.status(500).json({ error: 'Unable to fetch user role', details: error.message });
+  }
 }
 
 export function getRoles(req, res) {
-  const roles = getRolesRepo();
-  res.json(roles);
+  try {
+    const roles = getRolesRepo();
+    res.json(roles);
+  } catch (error) {
+    res.status(500).json({ error: 'Unable to fetch roles', details: error.message });
+  }
 }
