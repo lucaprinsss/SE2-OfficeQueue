@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
   res.send('Server Express is running!');
 });
 
-// Monta le route modulari
 router.use('/services', serviceRoutes);
 router.use('/tickets', ticketRoutes);
 router.use('/users', userRoutes);
