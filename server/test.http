@@ -1,0 +1,25 @@
+### GET all available services
+GET http://localhost:3001/services
+Accept: application/json
+
+###
+
+### POST a new ticket (replace serviceType with a valid ID)
+POST http://localhost:3001/tickets
+Content-Type: application/json
+
+{
+  "serviceType": 2
+}
+
+###
+
+### GET queue length for a specific service type
+GET http://localhost:3001/tickets/queue/1/length
+Accept: application/json
+
+###
+
+### GET all user roles
+GET http://localhost:3001/users/roles
+Accept: application/json
