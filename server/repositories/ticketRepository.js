@@ -1,85 +1,124 @@
 import {db} from '../db/db-connection.js';
 import { Ticket } from '../models/TicketDAO.js';
 
-export function createTicket(serviceType) {
-  const insert = db.prepare('INSERT INTO tickets (service_id) VALUES (?)');
-  const info = insert.run(serviceType);
-  const ticketId = info.lastInsertRowid;
-  return ticketId;
+export const createTicket = async (serviceType) => {
+  return new Promise((resolve, reject) => {
+      db.run('INSERT INTO tickets (service_id) VALUES (?)',[serviceType], function(err){
+        if(err){
+          reject(err);
+        } else{
+          resolve(this.lastID)
+        }
+      });
+  })
 }
 
-export function getTicketById(ticketId) {
-  const ticket = db.prepare('SELECT * FROM tickets WHERE id = ?').get(ticketId);
-  return new Ticket(ticket) || null;
+export const getTicketById = async (ticketId) => {
+  return new Promise((resolve, reject) => {
+    db.get('SELECT * FROM tickets WHERE id = ?', [ticketId], (err, row) => {
+      if(err){
+        reject(err);
+      } else{
+        const ticket = new Ticket(row);
+        resolve(ticket);
+      }
+    });
+  })
+
 }
 
-export function getQueueLength(serviceType) {
-  const statement = db.prepare(`
-    SELECT COUNT(*) AS length
-    FROM tickets
-    WHERE service_id = ?
-      AND status = 'waiting'
-      AND queue_date = CURRENT_DATE
-  `);
-  const result = statement.get(serviceType);
-  return result.length;
-}
-
-export function getNextTicketForCounter(counterId) {
-  // 1. Trova i servizi gestibili dal counter
-  const services = db.prepare(`
-    SELECT s.id, s.service_time
-    FROM counter_services cs
-    JOIN services s ON cs.service_id = s.id
-    WHERE cs.counter_id = ?
-  `).all(counterId);
-
-  if (services.length === 0) return null;
-
-  // 2. Per ogni servizio, conta i ticket in attesa
-  const queues = services.map(service => {
-    const count = db.prepare(`
-      SELECT COUNT(*) as length
+export const getQueueLength = async (serviceType) => {
+  return new Promise((resolve, reject) => {
+    db.get(`
+      SELECT COUNT(*) AS length
       FROM tickets
-      WHERE service_id = ? AND status = 'waiting'
-    `).get(service.id).length;
-    return { serviceId: service.id, serviceTime: service.service_time, length: count };
+      WHERE service_id = ?
+        AND status = 'waiting'
+        AND queue_date = CURRENT_DATE`, [serviceType], (err, row) => {  
+          if(err){
+            reject(err);
+          } else {
+            resolve(row.length);
+          }
+    });
   });
-
-  // 3. Trova la coda più lunga tra i servizi gestibili
-  const maxLength = Math.max(...queues.map(q => q.length));
-  const longestQueues = queues.filter(q => q.length === maxLength && q.length > 0);
-
-  if (longestQueues.length === 0) return null;
-
-  // 4. In caso di parità, scegli il servizio con il minor service time
-  const selectedService = longestQueues.reduce((min, q) =>
-    q.serviceTime < min.serviceTime ? q : min, longestQueues[0]
-  );
-
-  // 5. Prendi il primo ticket in attesa per il servizio selezionato
-  const ticket = db.prepare(`
-    SELECT *
-    FROM tickets
-    WHERE service_id = ? AND status = 'waiting'
-    ORDER BY issue_time ASC
-    LIMIT 1
-  `).get(selectedService.serviceId);
-
-  return new Ticket(ticket) || null;
 }
 
-export function serveTicket(ticketCode, counterId) {
-  // 1. Aggiorna lo stato del ticket a 'served', assegna il counter e la data di servizio
-  const update = db.prepare(`
-    UPDATE tickets
-    SET status = 'served',
-        serve_time = CURRENT_TIMESTAMP,
-        counter_id = ?
-    WHERE id = ?
-      AND status = 'waiting'
-  `);
+export const getNextTicketForCounter = async (counterId) => {
+  return new Promise((resolve, reject) => {
+    // 1. Trova i servizi gestibili dal counter
+    const services = db.all(`
+      SELECT s.id, s.service_time
+      FROM counter_services cs
+      JOIN services s ON cs.service_id = s.id
+      WHERE cs.counter_id = ?`, [counterId], (err, rows) => {
+        if(err){
+          reject(err);
+        } else if(rows.length === 0){
+          resolve(null);
+        } else {
+          return rows;
+        }
+      });
+    
+      const queues = services.map(service => {
+        const count = db.run(`
+          SELECT COUNT(*) as length
+          FROM tickets
+          WHERE service_id = ? AND status = 'waiting'`, [service.id], function(err){
+            if(err){
+              reject(err);
+            } else{
+              return row.length;
+            }
+          });
+        return { serviceId: service.id, serviceTime: service.service_time, length: count };
+      });
 
-  const info = update.run(counterId, ticketCode);
-  return info.changes > 0; // true se il ticket è stato servito, false altrimenti
+      // 3. Trova la coda più lunga tra i servizi gestibili
+      const maxLength = Math.max(...queues.map(q => q.length));
+      const longestQueues = queues.filter(q => q.length === maxLength && q.length > 0);
+
+      if (longestQueues.length === 0) resolve(null);
+
+      // 4. In caso di parità, scegli il servizio con il minor service time
+      const selectedService = longestQueues.reduce((min, q) =>
+        q.serviceTime < min.serviceTime ? q : min, longestQueues[0]
+      );
+
+      // 5. Prendi il primo ticket in attesa per il servizio selezionato
+      db.get(`
+        SELECT *
+        FROM tickets
+        WHERE service_id = ? AND status = 'waiting'
+        ORDER BY issue_time ASC
+        LIMIT 1`, [selectedService.serviceId], (err, row) => {
+          if(err){
+            reject(err);
+          } else {
+            resolve(new Ticket(row) || null); 
+          }
+        });
+  })
+}
+
+export const serveTicket = async (ticketCode, counterId) => {
+  return new Promsise((resolve, reject) => {
+    // 1. Aggiorna lo stato del ticket a 'served', assegna il counter e la data di servizio
+    const update = db.run(`
+      UPDATE tickets
+      SET status = 'served',
+          serve_time = CURRENT_TIMESTAMP,
+          counter_id = ?
+      WHERE id = ?
+        AND status = 'waiting'`, [ticketCode, counterId], function(err){
+          if(err){
+            reject(err);
+          } else if(row.changes > 0){ù
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+  })
 }
