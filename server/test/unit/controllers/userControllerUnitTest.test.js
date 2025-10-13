@@ -4,7 +4,7 @@ import { jest } from '@jest/globals';
 const mockGetUserRole = jest.fn();
 const mockGetRoles = jest.fn();
 
-jest.unstable_mockModule('../../repositories/userRepository.js', () => ({
+jest.unstable_mockModule('../../../repositories/userRepository.js', () => ({
   getUserRole: mockGetUserRole,
   getRoles: mockGetRoles
 }));

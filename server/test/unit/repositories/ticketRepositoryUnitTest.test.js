@@ -8,12 +8,12 @@ const mockDb = {
 };
 
 // Mock del modulo db-connection PRIMA di importare il repository
-jest.unstable_mockModule('../../db/db-connection.js', () => ({
+jest.unstable_mockModule('../../../db/db-connection.js', () => ({
   db: mockDb
 }));
 
 // Mock del modello Ticket
-jest.unstable_mockModule('../../models/TicketDAO.js', () => ({
+jest.unstable_mockModule('../../../models/TicketDAO.js', () => ({
   Ticket: class Ticket {
     constructor(data) {
       if (data) {
