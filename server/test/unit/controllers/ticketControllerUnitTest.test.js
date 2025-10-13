@@ -7,7 +7,7 @@ const mockGetNextTicketForCounter = jest.fn();
 const mockServeTicket = jest.fn();
 const mockGetTicketById = jest.fn();
 
-jest.unstable_mockModule('../../repositories/ticketRepository.js', () => ({
+jest.unstable_mockModule('../../../repositories/ticketRepository.js', () => ({
   createTicket: mockCreateTicket,
   getQueueLength: mockGetQueueLength,
   getNextTicketForCounter: mockGetNextTicketForCounter,
@@ -16,7 +16,7 @@ jest.unstable_mockModule('../../repositories/ticketRepository.js', () => ({
 }));
 
 // Importa il controller DOPO aver mockato il repository
-const { createTicket } = await import('../../controllers/ticketController.js');
+const { createTicket } = await import('../../../controllers/ticketController.js');
 
 describe('TicketController', () => {
   beforeEach(() => {
