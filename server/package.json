@@ -1,11 +1,23 @@
 {
   "type": "module",
   "scripts": {
-    "init-db": "node db/init-database.js"
+    "init-db": "node db/init-database.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": ["/node_modules/"],
+    "testMatch": ["**/test/**/*.test.js", "**/__tests__/**/*.test.js"]
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
   }
 }
