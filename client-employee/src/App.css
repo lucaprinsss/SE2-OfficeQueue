@@ -38,10 +38,41 @@ body {
 }
 
 /* ===== Header ===== */
+header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 header h1 {
   margin: 8px 0 0 0;
   font-size: 28px;
   text-align: center;
+}
+
+.logout-button {
+  position: absolute;
+  right: 0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.logout-button:active {
+  transform: translateY(0);
 }
 
 /* ===== Card ===== */

@@ -17,10 +17,18 @@ function NextCustomer({ counterID }) {
     setError(null);
 
     try {
-      const nextCustomer = await getNextCustomer(counterID);
-      setCurrentCustomer(nextCustomer);
+      const data = await getNextCustomer(counterID);
+      // L'API ritorna { servedTicket: { id, service_id, ... } }
+      setCurrentCustomer(data.servedTicket);
+      setError(null); // Pulisci eventuali errori precedenti
     } catch (err) {
-      setError("Failed to call the next customer. Please try again.");
+      // Gestisci il messaggio di errore specifico dal server
+      if (err.message.includes('No tickets to serve')) {
+        setError("No customers waiting in your queue. The queue is empty.");
+      } else {
+        setError("Failed to call the next customer. Please try again.");
+      }
+      setCurrentCustomer(null); // Pulisci il customer corrente in caso di errore
     } finally {
       setLoading(false);
     }
@@ -34,7 +42,7 @@ function NextCustomer({ counterID }) {
 
       <div className="ticket-info">
         {currentCustomer ? (
-          <h3>{currentCustomer}</h3>
+          <h3>Ticket #{currentCustomer.id}</h3>
         ) : (
           <p className="no-customer">Call your first customer</p>
         )}

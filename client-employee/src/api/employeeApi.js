@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:3001/api"; 
+const API_BASE_URL = "http://localhost:3001"; 
 
 // POST /tickets/counters/:counterId/next-ticket 
 export async function getNextCustomer(counterID) {
@@ -9,8 +9,11 @@ export async function getNextCustomer(counterID) {
         "Content-Type": "application/json",
       },
     });
+    
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // Prova a estrarre il messaggio di errore dal server
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
     }
     
     const data = await response.json();
