@@ -30,7 +30,7 @@ jest.unstable_mockModule('../../../models/TicketDAO.js', () => ({
 }));
 
 // Importa il repository DOPO aver mockato le dipendenze
-const { createTicket } = await import('../../../repositories/ticketRepository.js');
+const { createTicket, getQueueLength, serveTicket } = await import('../../../repositories/ticketRepository.js');
 
 describe('TicketRepository', () => {
   beforeEach(() => {
@@ -131,4 +131,74 @@ describe('TicketRepository', () => {
       expect(mockDb.run).toHaveBeenCalledTimes(3);
     });
   });
+
+  
+  describe('getQueueLength', () => {
+    it('should return the correct queue length for a service', async () => {
+      const serviceType = 1;
+      const mockRow = { length: 5 };
+
+      mockDb.get.mockImplementation((sql, params, callback) => {
+        callback(null, mockRow);
+      });
+
+      const result = await getQueueLength(serviceType);
+
+      expect(mockDb.get).toHaveBeenCalledWith(expect.stringContaining('SELECT COUNT(*)'), [serviceType], expect.any(Function));
+      expect(result).toBe(5);
+    });
+
+    it('should reject with error if query fails', async () => {
+      const serviceType = 2;
+      const dbError = new Error('Database error');
+
+      mockDb.get.mockImplementation((sql, params, callback) => {
+        callback(dbError);
+      });
+
+      await expect(getQueueLength(serviceType)).rejects.toThrow('Database error');
+    });
+  });
+
+  describe('serveTicket', () => {
+    it('should resolve true if ticket is successfully served', async () => {
+      const ticketCode = 123;
+      const counterId = 5;
+
+      mockDb.run.mockImplementation((sql, params, callback) => {
+        callback.call({ changes: 1 }, null);
+      });
+
+      const result = await serveTicket(ticketCode, counterId);
+
+      expect(mockDb.run).toHaveBeenCalledWith(expect.stringContaining('UPDATE tickets'), [counterId,ticketCode], expect.any(Function));
+      expect(result).toBe(true);
+    });
+
+    it('should resolve false if no ticket was updated (e.g., already served)', async () => {
+      const ticketCode = 456;
+      const counterId = 3;
+
+      mockDb.run.mockImplementation((sql, params, callback) => {
+        callback.call({ changes: 0 }, null);
+      });
+
+      const result = await serveTicket(ticketCode, counterId);
+
+      expect(result).toBe(false);
+    });
+
+    it('should reject with error if update fails', async () => {
+      const ticketCode = 789;
+      const counterId = 2;
+      const dbError = new Error('Update failed');
+
+      mockDb.run.mockImplementation((sql, params, callback) => {
+        callback.call({}, dbError);
+      });
+
+      await expect(serveTicket(ticketCode, counterId)).rejects.toThrow('Update failed');
+    });
+  });
+
 });
