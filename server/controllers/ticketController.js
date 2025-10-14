@@ -44,6 +44,9 @@ export async function callNextTicket(req, res) {
     }
     // Recupera il ticket aggiornato
     const updatedTicket = await getTicketById(ticket.id);
+    if (!updatedTicket) {
+      return res.status(404).json({ error: 'Ticket not found after serving.' });
+    }
     res.json({ servedTicket: updatedTicket });
   } catch (error) {
     res.status(500).json({ error: 'Error serving next ticket', details: error.message });
