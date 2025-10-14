@@ -1,42 +1,252 @@
-#root {
-  max-width: 1280px;
+:root {
+  --bg: #364770;
+  --card: #182746;
+  --accent: #4985ce;
+  --text: #e6eef8;
+}
+
+/* ===== Global Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg), #071023);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ===== App Layout ===== */
+.app {
+  width: min(880px, 96%);
+  padding: 28px;
   margin: 0 auto;
-  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Header ===== */
+header h1 {
+  margin: 8px 0 0 0;
+  font-size: 28px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
+/* ===== Card ===== */
 .card {
-  padding: 2em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 18px;
 }
 
-.read-the-docs {
-  color: #888;
+/* ===== Footer ===== */
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: left;
+  padding: 10px 20px;
+}
+
+/* ===== Next Customer Section ===== */
+.next-customer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 20px 50px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  margin: 26px auto;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  min-height: 330px;
+}
+
+.next-customer h2 {
+  margin-bottom: 24px;
+  font-size: 22px;
+  color: var(--text);
+}
+
+/* ===== Select Counter Section ===== */
+.select-counter-id {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 28px;
+  max-width: 420px;
+  margin: 10px auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+}
+
+.select-counter-id select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: #0b1220;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: box-shadow 0.18s ease, transform 0.08s ease;
+}
+
+.select-counter-id select:focus {
+  box-shadow: 0 6px 18px rgba(73,133,206,0.14);
+  transform: translateY(-1px);
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 40px;
+}
+
+.select-wrapper .caret {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 14px;
+  color: rgba(255,255,255,0.72);
+}
+
+.select-counter-id select:hover {
+  background: #0d1624;
+}
+
+.select-counter-id select:disabled {
+  background: rgba(255,255,255,0.02);
+  color: rgba(255,255,255,0.45);
+  border-color: rgba(255,255,255,0.03);
+}
+
+.select-counter-id select:focus {
+  box-shadow: 0 6px 20px rgba(73,133,206,0.06);
+  border-color: rgba(73,133,206,0.35);
+  transform: translateY(-1px);
+}
+
+.select-counter-id option {
+  background: #0d1624;
+  color: var(--text);
+}
+
+.select-counter-id option:checked,
+.select-counter-id option[selected] {
+  background: rgba(73,133,206,0.06);
+  color: #fff;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select-counter-id option:active {
+  background: rgba(73,133,206,0.06);
+}
+
+.login-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.06s ease;
+}
+
+.login-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.login-button:hover:not(:disabled) {
+  background: #3b7fc1;
+  transform: translateY(-2px);
+}
+
+
+/* ===== Next Customer Button ===== */
+.next-customer-btn {
+  width: 60%;
+  margin-top: 25px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #28a745; 
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.next-customer-btn:hover {
+  background: #23963f;
+}
+
+.next-customer-btn:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+}
+
+/* ===== Ticket Info Box ===== */
+.ticket-info {
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 18px;
+  border-radius: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.ticket-info h3 {
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+/* ===== Current Customer Number Styling ===== */
+.next-customer h3 {
+  margin-top: 6px;
+  font-size: 38px;
+  letter-spacing: 1px;
+  color: #fff;
+  background: linear-gradient(90deg, rgba(73,133,206,0.12), rgba(40,167,69,0.08));
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: inset 0 -6px 18px rgba(0,0,0,0.15);
+}
+
+/* ===== Error Message ===== */
+.error {
+  color: #ff7b7b;
+  margin-top: 12px;
+  font-weight: 500;
 }
