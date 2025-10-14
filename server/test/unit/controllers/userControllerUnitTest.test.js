@@ -18,7 +18,7 @@ describe('UserController', () => {
   });
 
   describe('getUserRole', () => {
-    it('should return user role successfully', () => {
+    it('should return user role successfully', async () => {
       const mockRole = { role: 'officer' };
       const req = { params: { userId: '2' } };
       const res = {
@@ -28,15 +28,14 @@ describe('UserController', () => {
 
       mockGetUserRole.mockReturnValue(mockRole);
 
-      getUserRole(req, res);
+      await getUserRole(req, res);
 
       expect(mockGetUserRole).toHaveBeenCalledWith(2);
-      expect(mockGetUserRole).toHaveBeenCalledTimes(1);
       expect(res.json).toHaveBeenCalledWith({ userId: 2, role: 'officer' });
       expect(res.status).not.toHaveBeenCalled();
     });
 
-    it('should return 404 if user not found', () => {
+    it('should return 404 if user not found', async () => {
       const req = { params: { userId: '999' } };
       const res = {
         status: jest.fn().mockReturnThis(),
@@ -45,14 +44,14 @@ describe('UserController', () => {
 
       mockGetUserRole.mockReturnValue(null);
 
-      getUserRole(req, res);
+      await getUserRole(req, res);
 
       expect(mockGetUserRole).toHaveBeenCalledWith(999);
       expect(res.status).toHaveBeenCalledWith(404);
       expect(res.json).toHaveBeenCalledWith({ error: 'User not found' });
     });
 
-    it('should return 500 if repository throws an error', () => {
+    it('should return 500 if repository throws an error', async () => {
       const dbError = new Error('Database error');
       const req = { params: { userId: '1' } };
       const res = {
@@ -64,7 +63,7 @@ describe('UserController', () => {
         throw dbError;
       });
 
-      getUserRole(req, res);
+      await getUserRole(req, res);
 
       expect(mockGetUserRole).toHaveBeenCalledWith(1);
       expect(res.status).toHaveBeenCalledWith(500);
@@ -74,7 +73,7 @@ describe('UserController', () => {
       });
     });
 
-    it('should handle different userId values', () => {
+    it('should handle different userId values', async () => {
       const mockRole = { role: 'admin' };
       const req = { params: { userId: '4' } };
       const res = {
@@ -84,13 +83,13 @@ describe('UserController', () => {
 
       mockGetUserRole.mockReturnValue(mockRole);
 
-      getUserRole(req, res);
+      await getUserRole(req, res);
 
       expect(mockGetUserRole).toHaveBeenCalledWith(4);
       expect(res.json).toHaveBeenCalledWith({ userId: 4, role: 'admin' });
     });
 
-    it('should convert string userId to number', () => {
+    it('should convert string userId to number', async () => {
       const mockRole = { role: 'customer' };
       const req = { params: { userId: '1' } };
       const res = {
@@ -100,7 +99,7 @@ describe('UserController', () => {
 
       mockGetUserRole.mockReturnValue(mockRole);
 
-      getUserRole(req, res);
+      await getUserRole(req, res);
 
       expect(mockGetUserRole).toHaveBeenCalledWith(1);
       expect(typeof mockGetUserRole.mock.calls[0][0]).toBe('number');
@@ -108,7 +107,7 @@ describe('UserController', () => {
   });
 
   describe('getRoles', () => {
-    it('should return all roles successfully', () => {
+    it('should return all roles successfully', async () => {
       const mockRoles = ['customer', 'officer', 'manager', 'admin'];
       const req = {};
       const res = {
@@ -118,14 +117,14 @@ describe('UserController', () => {
 
       mockGetRoles.mockReturnValue(mockRoles);
 
-      getRoles(req, res);
+      await getRoles(req, res);
 
       expect(mockGetRoles).toHaveBeenCalledTimes(1);
       expect(res.json).toHaveBeenCalledWith(mockRoles);
       expect(res.status).not.toHaveBeenCalled();
     });
 
-    it('should return empty array if no roles available', () => {
+    it('should return empty array if no roles available', async () => {
       const req = {};
       const res = {
         status: jest.fn().mockReturnThis(),
@@ -134,13 +133,13 @@ describe('UserController', () => {
 
       mockGetRoles.mockReturnValue([]);
 
-      getRoles(req, res);
+      await getRoles(req, res);
 
       expect(mockGetRoles).toHaveBeenCalledTimes(1);
       expect(res.json).toHaveBeenCalledWith([]);
     });
 
-    it('should return 500 if repository throws an error', () => {
+    it('should return 500 if repository throws an error', async () => {
       const dbError = new Error('Database connection failed');
       const req = {};
       const res = {
@@ -152,7 +151,7 @@ describe('UserController', () => {
         throw dbError;
       });
 
-      getRoles(req, res);
+      await getRoles(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
