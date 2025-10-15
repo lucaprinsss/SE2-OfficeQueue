@@ -1,25 +1,21 @@
-import Database from 'sqlite3';
+import sqlite3 from 'sqlite3';
+const { Database } = sqlite3;
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Per ottenere __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Path del database
 const DB_PATH = path.join(__dirname, 'database.db');
 
-// Crea il database (o lo apre se esiste)
 const db = new Database(DB_PATH);
 
-// Abilita le foreign keys
-db.pragma('foreign_keys = ON');
+db.exec('PRAGMA foreign_keys = ON');
 
-// Funzione per inizializzare il database
 function initializeDatabase() {
   console.log('Initializing database...');
 
-  // Crea tabella services
+  // Creates services table
   db.exec(`
     CREATE TABLE IF NOT EXISTS services (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +24,7 @@ function initializeDatabase() {
     )
   `);
 
-  // Crea tabella counters
+  // Creates counters table
   db.exec(`
     CREATE TABLE IF NOT EXISTS counters (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +32,7 @@ function initializeDatabase() {
     )
   `);
 
-  // Crea tabella counter_services
+  // Creates counter_services table
   db.exec(`
     CREATE TABLE IF NOT EXISTS counter_services (
       counter_id INTEGER,
@@ -47,7 +43,7 @@ function initializeDatabase() {
     )
   `);
 
-  // Crea tabella tickets
+  // Creates tickets table
   db.exec(`
     CREATE TABLE IF NOT EXISTS tickets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,35 +61,35 @@ function initializeDatabase() {
 
   console.log('Database tables created successfully');
 
-  // Verifica se ci sono già dati
+  // Check if there is already data
   const serviceCount = db.prepare('SELECT COUNT(*) as count FROM services').get();
   
   if (serviceCount.count === 0) {
     console.log('Inserting initial data...');
-    
-    // Inserisci servizi iniziali
+
+    // Insert initial services
     const insertService = db.prepare('INSERT INTO services (name, service_time) VALUES (?, ?)');
     insertService.run('Shipping', 5);
     insertService.run('Accounting', 10);
     insertService.run('Registry', 15);
 
-    // Inserisci sportelli iniziali
+    // Insert initial counters
     const insertCounter = db.prepare('INSERT INTO counters (name) VALUES (?)');
     insertCounter.run('Counter 1');
     insertCounter.run('Counter 2');
     insertCounter.run('Counter 3');
 
-    // Associa servizi agli sportelli
+    // Associate services with counters
     const insertCounterService = db.prepare(
       'INSERT INTO counter_services (counter_id, service_id) VALUES (?, ?)'
     );
-    // Counter 1: Shipping e Accounting
+    // Counter 1: Shipping and Accounting
     insertCounterService.run(1, 1);
     insertCounterService.run(1, 2);
-    // Counter 2: Accounting e Registry
+    // Counter 2: Accounting and Registry
     insertCounterService.run(2, 2);
     insertCounterService.run(2, 3);
-    // Counter 3: Shipping e Registry
+    // Counter 3: Shipping and Registry
     insertCounterService.run(3, 1);
     insertCounterService.run(3, 3);
 
@@ -105,5 +101,5 @@ function initializeDatabase() {
   console.log('Database ready!');
 }
 
-// Inizializza il database al primo import
+// Initialize the database when this module is loaded
 initializeDatabase();
