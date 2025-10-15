@@ -42,9 +42,11 @@ function NextCustomer({ counterID }) {
 
       <div className="ticket-info">
         {currentCustomer ? (
-          <h3>Ticket #{currentCustomer.id}</h3>
+          <p className="ticket-number">
+            <strong>{currentCustomer.id}</strong>
+          </p>
         ) : (
-          <p className="no-customer">Call your first customer</p>
+          <p className="no-customer">Call a customer</p>
         )}
       </div>
 

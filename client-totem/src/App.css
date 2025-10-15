@@ -162,6 +162,22 @@ footer {
   color: var(--accent);
 }
 
+.ticket-number {
+  font-size: 72px;
+  font-weight: bold;
+  color: #fff;
+  margin: 20px 0;
+  text-shadow: 0 4px 12px rgba(73, 133, 206, 0.4);
+}
+
+.ticket-number strong {
+  display: block;
+  background: linear-gradient(135deg, rgba(73,133,206,0.15), rgba(40,167,69,0.1));
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
 /* ===== Error Message ===== */
 .error {
   color: #ff7b7b;

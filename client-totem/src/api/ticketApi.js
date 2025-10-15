@@ -2,6 +2,28 @@
 
 const API_BASE_URL = "http://localhost:3001"; 
 
+// GET /services - Ottieni tutti i servizi disponibili
+export async function getServices() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/services`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data; // expected response: array of { id, name, service_time }
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    throw error;
+  }
+}
+
 export async function getTicket(serviceType) {
   try {
     const response = await fetch(`${API_BASE_URL}/tickets`, {
@@ -16,8 +38,8 @@ export async function getTicket(serviceType) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    return data; // expected response: { number, serviceName, estimatedTime }
+    const ticketId = await response.json();
+    return ticketId; // server returns just the ticket ID (number)
   } catch (error) {
     console.error("Error fetching ticket:", error);
     throw error;
