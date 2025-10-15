@@ -6,13 +6,13 @@ import express from 'express';
 const mockGetUserRole = jest.fn();
 const mockGetRoles = jest.fn();
 
-jest.unstable_mockModule('../../repositories/userRepository.js', () => ({
+jest.unstable_mockModule('../../../repositories/userRepository.js', () => ({
     getUserRole: mockGetUserRole,
     getRoles: mockGetRoles
 }));
 
 // Importa routes DOPO i mock
-const userRoutes = (await import('../../routes/userRoutes.js')).default;
+const userRoutes = (await import('../../../routes/userRoutes.js')).default;
 
 // Setup Express app per i test
 const app = express();

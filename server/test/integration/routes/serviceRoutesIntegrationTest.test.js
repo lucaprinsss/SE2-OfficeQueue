@@ -5,12 +5,12 @@ import express from 'express';
 // Mock del repository PRIMA di importare le routes
 const mockGetServices = jest.fn();
 
-jest.unstable_mockModule('../../repositories/serviceRepository.js', () => ({
+jest.unstable_mockModule('../../../repositories/serviceRepository.js', () => ({
     getServices: mockGetServices
 }));
 
 // Importa routes DOPO i mock
-const serviceRoutes = (await import('../../routes/serviceRoutes.js')).default;
+const serviceRoutes = (await import('../../../routes/serviceRoutes.js')).default;
 
 // Setup Express app per i test
 const app = express();

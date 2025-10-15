@@ -9,7 +9,7 @@ const mockGetNextTicketForCounter = jest.fn();
 const mockServeTicket = jest.fn();
 const mockGetTicketById = jest.fn();
 
-jest.unstable_mockModule('../../repositories/ticketRepository.js', () => ({
+jest.unstable_mockModule('../../../repositories/ticketRepository.js', () => ({
   createTicket: mockCreateTicket,
   getQueueLength: mockGetQueueLength,
   getNextTicketForCounter: mockGetNextTicketForCounter,
@@ -18,7 +18,7 @@ jest.unstable_mockModule('../../repositories/ticketRepository.js', () => ({
 }));
 
 // Importa routes DOPO i mock
-const ticketRoutes = (await import('../../routes/ticketRoutes.js')).default;
+const ticketRoutes = (await import('../../../routes/ticketRoutes.js')).default;
 
 // Setup Express app per i test
 const app = express();
