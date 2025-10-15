@@ -64,7 +64,7 @@ function initializeDatabase() {
   // Check if there is already data
   const serviceCount = db.prepare('SELECT COUNT(*) as count FROM services').get();
   
-  if (serviceCount.count === 0) {
+  if (serviceCount.count === undefined || serviceCount.count === 0) {
     console.log('Inserting initial data...');
 
     // Insert initial services
