@@ -96,28 +96,53 @@ $$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_task_i}-1 \right| 
   - Total hours spent
   - Nr of test cases
 - Code review 
-  - Total hours estimated 
+  - Total hours estimated
   - Total hours spent
-  
-
 
 ## ASSESSMENT
 
 - What did go wrong in the sprint?
-  > We under estimated the sprint planning
+
+  - We underestimated the time required for sprint planning, leaving us with unresolved questions about several tasks even after the session.
+
+  - Insufficient communication and coordination among team members made it challenging to integrate different parts of the project effectively.
+
+  - Technical difficulties with Git workflow management slowed our progress and led to confusion.
 
 - What caused your errors in estimation (if any)?
-  > Our limited experience in Agile approach
+
+  - Limited experience with Agile methodology, particularly in task estimation, resulted in inaccurate predictions of time and effort.
+
+  - We did not adopt established Git processes and conventions from the outset, which contributed to estimation errors.
 
 - What lessons did you learn (both positive and negative) in this sprint?
-  >
+
+  - Delivering simple, functional features is more valuable than attempting complex ones that risk missing deadlines or stakeholder needs.
+
+  - Good planning and clear communication within the team lead to greater efficiency.
+
+  - Seeking help from teammates when facing difficulties improves problem-solving and team cohesion.
+
+  - Adopting and following established processes and conventions from the start makes the project run more smoothly and efficiently.
+
 - Which improvement goals set in the previous retrospective were you able to achieve? 
-  > Since this is the first retrospective, there hasn't been a previous one 
+  
+  As this is our first retrospective, there were no previous improvement goals to achieve.
+
 - Which ones you were not able to achieve? Why?
-  >
+  
+  As this is our first retrospective, there were no previous improvement goals that could not be achieved.
+
 - Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.)
 
-  > Being more precise in dividing all the tasks and sprin planning.
+  - Be more precise in dividing and defining tasks during sprint planning, including splitting large tasks into smaller, manageable ones.
+
+  - Allocate more time to discuss and decide on technical aspects, such as API design and implementation.
+
+  - Enhance team communication and coordination, especially through in-person interactions.
+
+  - Establish and consistently follow a Git workflow, paying close attention to branch management and keeping branches up to date.
 
 - One thing you are proud of as a Team!!
-  >
+
+  - We are proud of our ability to adapt and learn quickly from experience and of our humility in focusing on two tasks and completing both with high quality.
