@@ -50,7 +50,7 @@ $$\text{Sample standard deviation }(s)=\sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i-\mu)
 
 #### Total estimation error ratio: sum of total hours spent / sum of total hours effort - 1
 
-$$\frac{\sum_i spent_{task_i}}{\sum_i estimation_{task_i}} - 1 = $$
+$$\frac{\sum_i spent_{task_i}}{\sum_i estimation_{task_i}} - 1 = 0.04 $$
 
 Details for story one:
 - OQ-11 2h done + 2h estimated;
@@ -82,22 +82,24 @@ Details for uncategorized tasks:
     
 #### Absolute relative task estimation error: sum( abs( spent-task-i / estimation-task-i - 1))/n
 
-$$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_task_i}-1 \right| $$
+$$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_{task_i}}-1 \right| = 0.06 $$
   
 ## QUALITY MEASURES 
 
 - Unit Testing:
-  - Total hours estimated
-  - Total hours spent
-  - Nr of automated unit test cases 
-  - Coverage
+  - Total hours estimated = 8h
+  - Total hours spent = 8.5h
+  - Nr of automated unit test cases = 
+  - Coverage = 
+  
+We did not do E2E testing, we focus on unit and integration testing.
 - E2E testing:
   - Total hours estimated
   - Total hours spent
   - Nr of test cases
 - Code review 
-  - Total hours estimated
-  - Total hours spent
+  - Total hours estimated = 6h
+  - Total hours spent = 5h
 
 ## ASSESSMENT
 
