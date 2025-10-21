@@ -90,13 +90,14 @@ $$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_{task_i}}-1 \right
   - Total hours estimated = 4h
   - Total hours spent = 4.5h
   - Nr of automated unit test cases = 77 tests
-  - Coverage = controllers: 54.54% of statements, repositories: 100% of statements
+  - Coverage = Functions: 94.11% , Branches: 82.9%
   
-  - Integartion Testing:
+- Integartion Testing:
   - Total hours estimated = 4h
   - Total hours spent = 4h
-  - Nr of automated unit test cases = 77 tests
-  - Coverage = controllers: 54.54% of statements, repositories: 100% of statements
+  - Nr of automated integration test cases = 46 tests
+  - Coverage = Functions: 97.05% , Branches: 87.2%
+
 We did not do E2E testing, we focus on unit and integration testing.
 - E2E testing:
   - Total hours estimated
@@ -115,6 +116,8 @@ We did not do E2E testing, we focus on unit and integration testing.
   - Insufficient communication and coordination among team members made it challenging to integrate different parts of the project effectively.
 
   - Technical difficulties with Git workflow management slowed our progress and led to confusion.
+
+  - We do not write End-To-End tests, we only focused on unit and integration testing.
 
 - What caused your errors in estimation (if any)?
 
@@ -149,6 +152,8 @@ We did not do E2E testing, we focus on unit and integration testing.
   - Enhance team communication and coordination, especially through in-person interactions.
 
   - Establish and consistently follow a Git workflow, paying close attention to branch management and keeping branches up to date.
+
+  - Respect the DoD, including E2E testing in our sprint.
 
 - One thing you are proud of as a Team!!
 
