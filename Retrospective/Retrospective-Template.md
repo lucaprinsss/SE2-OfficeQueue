@@ -87,11 +87,16 @@ $$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_{task_i}}-1 \right
 ## QUALITY MEASURES 
 
 - Unit Testing:
-  - Total hours estimated = 8h
-  - Total hours spent = 8.5h
-  - Nr of automated unit test cases = 
-  - Coverage = 
+  - Total hours estimated = 4h
+  - Total hours spent = 4.5h
+  - Nr of automated unit test cases = 77 tests
+  - Coverage = controllers: 54.54% of statements, repositories: 100% of statements
   
+  - Integartion Testing:
+  - Total hours estimated = 4h
+  - Total hours spent = 4h
+  - Nr of automated unit test cases = 77 tests
+  - Coverage = controllers: 54.54% of statements, repositories: 100% of statements
 We did not do E2E testing, we focus on unit and integration testing.
 - E2E testing:
   - Total hours estimated
