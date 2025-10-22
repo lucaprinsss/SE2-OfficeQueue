@@ -1,8 +1,7 @@
-TEMPLATE FOR RETROSPECTIVE (Team 10)
+RETROSPECTIVE (Team 10)
 =====================================
 
-The retrospective should include _at least_ the following
-sections:
+List of contents:
 
 - [process measures](#process-measures)
 - [quality measures](#quality-measures)
@@ -22,9 +21,7 @@ sections:
 - Integration Tests passing
 - Code present on VCS
 - Code review completed
-- End-to-End tests performed
-
-> Please refine your DoD if required (you cannot remove items!) 
+- End-to-End tests performed 
 
 ### Detailed statistics
 
@@ -100,11 +97,12 @@ Details for uncategorized tasks:
   - Nr of automated integration test cases = 46 tests
   - Coverage = Functions: 97.05% , Branches: 87.2%
 
-We did not do E2E testing, we focus on unit and integration testing.
+For this sprint we did not write any E2E tests but rather focused on unit and integration tests.
+
 - E2E testing:
-  - Total hours estimated
-  - Total hours spent
-  - Nr of test cases
+  - Total hours estimated = /
+  - Total hours spent = /
+  - Nr of test cases = /
 
 - Code review 
   - Total hours estimated = 12h
