@@ -19,8 +19,9 @@ sections:
 **Remember** a story is done ONLY if it fits the Definition of Done:
  
 - Unit Tests passing
-- Code review completed
+- Integration Tests passing
 - Code present on VCS
+- Code review completed
 - End-to-End tests performed
 
 > Please refine your DoD if required (you cannot remove items!) 
@@ -52,6 +53,10 @@ $$\text{Sample standard deviation }(s)=\sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i-\mu)
 
 $$\frac{\sum_i spent_{task_i}}{\sum_i estimation_{task_i}} - 1 = 0.04 $$
 
+#### Absolute relative task estimation error: sum( abs( spent-task-i / estimation-task-i - 1))/n
+
+$$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_{task_i}}-1 \right| = 0.06 $$
+  
 Details for story one:
 - OQ-11 2h done + 2h estimated;
 - OQ-13 2h done + 2h estimated;
@@ -80,21 +85,18 @@ Details for uncategorized tasks:
 - OQ-9 30min done + 30min estimated;
 - OQ-16 2d 1h done + 1d 4h estimated.
     
-#### Absolute relative task estimation error: sum( abs( spent-task-i / estimation-task-i - 1))/n
 
-$$\frac{1}{n}\sum_i^n \left| \frac{spent_{task_i}}{estimation_{task_i}}-1 \right| = 0.06 $$
-  
 ## QUALITY MEASURES 
 
 - Unit Testing:
-  - Total hours estimated = 4h
-  - Total hours spent = 4.5h
+  - Total hours estimated = 8h
+  - Total hours spent = 8.5h
   - Nr of automated unit test cases = 77 tests
   - Coverage = Functions: 94.11% , Branches: 82.9%
   
-- Integartion Testing:
-  - Total hours estimated = 4h
-  - Total hours spent = 4h
+- Integration Testing:
+  - Total hours estimated = 8h
+  - Total hours spent = 8h
   - Nr of automated integration test cases = 46 tests
   - Coverage = Functions: 97.05% , Branches: 87.2%
 
@@ -103,9 +105,10 @@ We did not do E2E testing, we focus on unit and integration testing.
   - Total hours estimated
   - Total hours spent
   - Nr of test cases
+
 - Code review 
-  - Total hours estimated = 6h
-  - Total hours spent = 5h
+  - Total hours estimated = 12h
+  - Total hours spent = 10h
 
 ## ASSESSMENT
 
@@ -153,7 +156,7 @@ We did not do E2E testing, we focus on unit and integration testing.
 
   - Establish and consistently follow a Git workflow, paying close attention to branch management and keeping branches up to date.
 
-  - Respect the DoD, including E2E testing in our sprint.
+  - Respect the DoD, by including E2E testing in our sprint.
 
 - One thing you are proud of as a Team!!
 
